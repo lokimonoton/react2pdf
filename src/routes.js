@@ -16,14 +16,16 @@ import Report from './components/report/report.jsx';
 import PreviewClientDetails from './components/client/previewclientdetails.jsx';
 import PreviewContract from './components/contract/previewContract.jsx';
 import PreviewTemplate from './components/template/previewTemplate.jsx';
-
+// import Panda from './panda.jsx';
 
 export default (
         <Route component={App}>
             <Route path="/" >
                 <IndexRoute component={loginPage} />
             </Route>
+            {/* <Route path="/panda" component={Panda} /> */}
             <Route path="/dashboard" component={dashboard} >
+            
                 <Route path="/home" component={Home} />
                  <Route path="/report" component={Report} />
                 <Route path="/clients" component={clientList} />

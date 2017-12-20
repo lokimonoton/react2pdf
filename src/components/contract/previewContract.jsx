@@ -4,6 +4,8 @@ import { Document } from 'react-pdf/build/entry.webpack';
 import * as ContractAction from '../../actions/contractAction.jsx';
 import ContractStore from '../../store/contractStore.jsx';
 import html2canvas from 'html2canvas';
+// import html2pdf from 'html2pdf.js';
+// import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 class PreviewContract extends React.Component {
     constructor(props) {
         super(props);
@@ -47,8 +49,10 @@ class PreviewContract extends React.Component {
     this.setState({ numPages });
   }
   printDocument() {
+    
     const input = document.getElementById('divToPrint');
     
+    // html2pdf(input);
     html2canvas(input)
       .then((canvas) => {
         
@@ -57,11 +61,10 @@ class PreviewContract extends React.Component {
         const pdf = new jsPDF('l', 'px', [520,120]);
         // pdf.viewerPreferences({'FitWindow': true}, true)
         
-        pdf.addImage(canvas, 'JPEG', 0,0);
+        pdf.addImage(imgData, 'JPEG', 0,0);
         // pdf.output('dataurlnewwindow');
         pdf.save("download.pdf");
-      })
-    ;
+      });
   }
 
 render() {
@@ -134,7 +137,8 @@ render() {
                                             <div className="row" >
                                                 <div id="divToPrint" className="col-md-10 m-auto pt-5 pb-5">
                                                     <h4>Contract Preview</h4>
-                                                    <p>{singlecontract.contract.html}</p>
+                                                    <div dangerouslySetInnerHTML={{__html: singlecontract.contract.html}} ></div>
+                                                        {/* <p>{singlecontract.contract.html}</p> */}
                                                     {/*<Document
                                                       file=""
                                                       onLoadSuccess={this.onDocumentLoad}>
