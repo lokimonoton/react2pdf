@@ -4,7 +4,7 @@ import { Document } from 'react-pdf/build/entry.webpack';
 import * as ContractAction from '../../actions/contractAction.jsx';
 import ContractStore from '../../store/contractStore.jsx';
 import html2canvas from 'html2canvas';
-// import html2pdf from 'html2pdf.js';
+import html2pdf from 'html2pdf.js';
 // import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 class PreviewContract extends React.Component {
     constructor(props) {
@@ -52,19 +52,20 @@ class PreviewContract extends React.Component {
     
     const input = document.getElementById('divToPrint');
     
-    // html2pdf(input);
-    html2canvas(input)
-      .then((canvas) => {
+    html2pdf(input,{
+        margin:       1});
+    // html2canvas(input)
+    //   .then((canvas) => {
         
-        const imgData = canvas.toDataURL('image/png');
+    //     const imgData = canvas.toDataURL('image/png');
         
-        const pdf = new jsPDF('l', 'px', [520,120]);
-        // pdf.viewerPreferences({'FitWindow': true}, true)
+    //     const pdf = new jsPDF('p', 'px', [input.offsetHeight,input.offsetWidth]);
+    //     // pdf.viewerPreferences({'FitWindow': true}, true)
         
-        pdf.addImage(imgData, 'JPEG', 0,0);
-        // pdf.output('dataurlnewwindow');
-        pdf.save("download.pdf");
-      });
+    //     pdf.addImage(imgData, 'JPEG', 10,10);
+    //     // pdf.output('dataurlnewwindow');
+    //     pdf.save("download.pdf");
+    //   });
   }
 
 render() {
@@ -135,9 +136,9 @@ render() {
                                                 </div>
                                             </div>
                                             <div className="row" >
-                                                <div id="divToPrint" className="col-md-10 m-auto pt-5 pb-5">
+                                                <div id="divToPrint"  className="col-md-10 m-auto pt-5 pb-5">
                                                     <h4>Contract Preview</h4>
-                                                    <div dangerouslySetInnerHTML={{__html: singlecontract.contract.html}} ></div>
+                                                    <div  dangerouslySetInnerHTML={{__html: singlecontract.contract.html}} ></div>
                                                         {/* <p>{singlecontract.contract.html}</p> */}
                                                     {/*<Document
                                                       file=""
